@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students | Hostel Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="students.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <!-- SIDEBAR - LOCKED STRUCTURE -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-building-user"></i> Hostel Admin</h2>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="admin_dashboard.html"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+                <a href="students.html" class="active"><i class="fa-solid fa-user-graduate"></i> <span>Students</span></a>
+                <a href="allocation.html"><i class="fa-solid fa-key"></i> <span>Room Allocation</span></a>
+                <a href="fees.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Fees</span></a>
+                <a href="leave.html"><i class="fa-solid fa-calendar-minus"></i> <span>Leave</span></a>
+                <a href="complaints.html"><i class="fa-solid fa-circle-exclamation"></i> <span>Complaints</span></a>
+                <a href="notices.html"><i class="fa-solid fa-bullhorn"></i> <span>Notices</span></a>
+                <a href="#"><i class="fa-solid fa-user-tie"></i> <span>Staff</span></a>
+                <a href="reports.html"><i class="fa-solid fa-chart-pie"></i> <span>Reports</span></a>
+            </nav>
+
+            <div class="logout-wrapper">
+                <a href="#" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- HEADER -->
+            <header class="top-nav">
+                <div class="welcome-text">
+                    <h1>Student Directory</h1>
+                    <p>Manage admissions, profiles, and academic records.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar-group">
+                        <div class="avatar"></div>
+                        <span class="profile-name">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 1. STUDENT STATISTICS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon-wrap blue"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-info">
+                        <p>Total Students</p>
+                        <h4>120</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-wrap green"><i class="fa-solid fa-user-check"></i></div>
+                    <div class="stat-info">
+                        <p>Active Students</p>
+                        <h4>112</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-wrap orange"><i class="fa-solid fa-user-plus"></i></div>
+                    <div class="stat-info">
+                        <p>New Students</p>
+                        <h4>8</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-wrap red"><i class="fa-solid fa-bed-pulse"></i></div>
+                    <div class="stat-info">
+                        <p>Without Room</p>
+                        <h4>15</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. STUDENT RECORDS TABLE -->
+            <div class="card table-card">
+                <div class="card-header">
+                    <h3>Student Records</h3>
+                    <!-- 2. ADD STUDENT BUTTON -->
+                    <button class="action-btn" id="openAddModal"><i class="fa-solid fa-plus"></i> Add Student</button>
+                </div>
+                
+                <!-- 3. SEARCH & FILTER -->
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="studentSearch" placeholder="Search Name, ID, Email...">
+                    </div>
+                    <select class="filter-dropdown" id="courseFilter">
+                        <option value="all">All Courses</option>
+                        <option value="BCA">BCA</option>
+                        <option value="MCA">MCA</option>
+                        <option value="BSc IT">BSc IT</option>
+                    </select>
+                    <select class="filter-dropdown" id="yearFilter">
+                        <option value="all">All Years</option>
+                        <option value="1st">1st Year</option>
+                        <option value="2nd">2nd Year</option>
+                        <option value="3rd">3rd Year</option>
+                    </select>
+                    <select class="filter-dropdown" id="statusFilter">
+                        <option value="all">All Statuses</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="graduated">Graduated</option>
+                        <option value="left">Left Hostel</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Course</th>
+                                <th>Year</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-course="bca" data-year="2nd" data-status="active">
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">O</div>
+                                        <span>Olivia Brown</span>
+                                    </div>
+                                </td>
+                                <td><strong>ST101</strong></td>
+                                <td>BCA</td>
+                                <td>2nd</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-btn open-view-modal"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="edit-btn open-edit-modal"><i class="fa-solid fa-pen"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-course="mca" data-year="1st" data-status="active">
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">N</div>
+                                        <span>Noah Davis</span>
+                                    </div>
+                                </td>
+                                <td><strong>ST102</strong></td>
+                                <td>MCA</td>
+                                <td>1st</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-btn open-view-modal"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="edit-btn open-edit-modal"><i class="fa-solid fa-pen"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-course="bca" data-year="1st" data-status="inactive">
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">C</div>
+                                        <span>Chloe Brooks</span>
+                                    </div>
+                                </td>
+                                <td><strong>ST103</strong></td>
+                                <td>BCA</td>
+                                <td>1st</td>
+                                <td><span class="status-badge inactive">Inactive</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-btn open-view-modal"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="edit-btn open-edit-modal"><i class="fa-solid fa-pen"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- 2. ADD STUDENT MODAL -->
+    <div class="modal-overlay" id="addStudentModal">
+        <div class="modal-box large-modal">
+            <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <h2>Add Student</h2>
+            </div>
+            <div class="modal-body">
+                <form id="addStudentForm">
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Full Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group half">
+                            <label>Student ID</label>
+                            <input type="text" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Email</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group half">
+                            <label>Phone</label>
+                            <input type="text" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Gender</label>
+                            <select required>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label>Date of Birth</label>
+                            <input type="date" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Course</label>
+                            <select required>
+                                <option value="BCA">BCA</option>
+                                <option value="MCA">MCA</option>
+                                <option value="BSc IT">BSc IT</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label>Year</label>
+                            <select required>
+                                <option value="1st Year">1st Year</option>
+                                <option value="2nd Year">2nd Year</option>
+                                <option value="3rd Year">3rd Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Guardian Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group half">
+                            <label>Guardian Phone</label>
+                            <input type="text" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn close-modal-btn-secondary">Cancel</button>
+                <button type="submit" form="addStudentForm" class="publish-btn bg-blue">ADD STUDENT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. & 8. VIEW STUDENT DETAILS & HISTORY MODAL -->
+    <div class="modal-overlay" id="viewStudentModal">
+        <div class="modal-box large-modal">
+            <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <h2>Student Details</h2>
+                <span class="status-badge active">Active</span>
+            </div>
+            <div class="modal-body profile-view">
+                
+                <div class="profile-header-info mb-20">
+                    <div class="large-avatar">O</div>
+                    <div>
+                        <h3>Olivia Brown</h3>
+                        <p>Student ID: <strong>ST101</strong></p>
+                    </div>
+                </div>
+                
+                <div class="detail-grid">
+                    <div class="detail-item"><span>Email:</span> olivia@example.com</div>
+                    <div class="detail-item"><span>Phone:</span> 9876543210</div>
+                    <div class="detail-item"><span>Gender:</span> Female</div>
+                    <div class="detail-item"><span>DOB:</span> 12/05/2005</div>
+                    <div class="detail-item"><span>Course:</span> BCA</div>
+                    <div class="detail-item"><span>Year:</span> Second Year</div>
+                    <div class="detail-item"><span>Guardian:</span> Mr. Brown</div>
+                    <div class="detail-item"><span>Guard. Ph:</span> 9876543211</div>
+                </div>
+                
+                <div class="detail-item mt-10"><span>Address:</span> Mumbai, Maharashtra</div>
+
+                <div class="info-boxes-row mt-20">
+                    <!-- Hostel Information Block (Display Only) -->
+                    <div class="info-block border-blue">
+                        <h4>Hostel Information</h4>
+                        <p><strong>Room:</strong> A-201</p>
+                        <p><strong>Bed:</strong> Bed 1</p>
+                        <p><strong>Status:</strong> Allocated</p>
+                    </div>
+                    
+                    <!-- Student History Block -->
+                    <div class="info-block border-orange">
+                        <h4>Student History</h4>
+                        <p><strong>Joined:</strong> 15/06/2025</p>
+                        <p><strong>Allocations:</strong> 2</p>
+                        <p><strong>Leaves:</strong> 8 &nbsp;|&nbsp; <strong>Complaints:</strong> 2</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn close-modal-btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. EDIT STUDENT MODAL -->
+    <div class="modal-overlay" id="editStudentModal">
+        <div class="modal-box large-modal">
+            <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <h2>Edit Student</h2>
+            </div>
+            <div class="modal-body">
+                <form id="editStudentForm">
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Full Name</label>
+                            <input type="text" value="Olivia Brown" required>
+                        </div>
+                        <div class="form-group half">
+                            <label>Email</label>
+                            <input type="email" value="olivia@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Phone</label>
+                            <input type="text" value="9876543210" required>
+                        </div>
+                        <div class="form-group half">
+                            <label>Status</label>
+                            <select required>
+                                <option value="active" selected>Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="graduated">Graduated</option>
+                                <option value="left">Left Hostel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Course</label>
+                            <select required>
+                                <option value="BCA" selected>BCA</option>
+                                <option value="MCA">MCA</option>
+                                <option value="BSc IT">BSc IT</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label>Year</label>
+                            <select required>
+                                <option value="1st Year">1st Year</option>
+                                <option value="2nd Year" selected>2nd Year</option>
+                                <option value="3rd Year">3rd Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Guardian Name</label>
+                            <input type="text" value="Mr. Brown" required>
+                        </div>
+                        <div class="form-group half">
+                            <label>Guardian Phone</label>
+                            <input type="text" value="9876543211" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" value="Mumbai, Maharashtra" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn close-modal-btn-secondary">Cancel</button>
+                <button type="submit" form="editStudentForm" class="publish-btn bg-orange">SAVE CHANGES</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="students.js"></script>
+</body>
+</html>

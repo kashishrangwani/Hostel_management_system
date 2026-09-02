@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - Hostel Management System</title>
+  <meta name="description" content="Resident student dashboard for hostel room, mess, notices, and services.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="header" id="mainHeader">
+    <div class="container navbar">
+      <a href="index.html" class="logo" id="siteLogo">
+        <div class="logo-badge">H</div>
+        <div class="logo-text">Hostel<span>Hub</span></div>
+      </a>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link" id="navHome">Home</a>
+        <a href="dashboard.html" class="nav-link active" id="navDashboard">Dashboard</a>
+        <a href="forms.html" class="nav-link" id="navForms">Forms</a>
+        <a href="table.html" class="nav-link" id="navTable">Complaints</a>
+        <div class="nav-auth-buttons">
+          <button class="btn btn-secondary btn-sm logout-btn" id="navLogoutBtn">Logout</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Dashboard Main Content -->
+  <main class="main-content">
+    <div class="container">
+      
+      <!-- Dashboard Top Header Bar -->
+      <div class="dashboard-header">
+        <div class="welcome-box">
+          <h1>Welcome, <span id="welcomeUserName" style="color: var(--primary-color);">Rahul Sharma</span>!</h1>
+          <p>Hostel Resident ID: <strong>HST-2026-B304</strong> | Academic Session: 2026-2027</p>
+        </div>
+        <div class="dashboard-actions">
+          <a href="forms.html" class="btn btn-outline btn-sm">&#9997; New Request</a>
+          <button class="btn btn-danger btn-sm logout-btn" id="dashLogoutBtn">&#128682; Logout</button>
+        </div>
+      </div>
+
+      <!-- Dashboard 3 Cards Grid -->
+      <div class="dashboard-grid">
+
+        <!-- Card 1: Room Details -->
+        <div class="dash-card" id="roomDetailsCard">
+          <div class="dash-card-header">
+            <div class="dash-card-title">
+              <span class="badge-icon">&#128719;</span> Room Allocation
+            </div>
+            <span class="badge badge-resolved">Active Allotment</span>
+          </div>
+
+          <div class="detail-list">
+            <div class="detail-item">
+              <span class="detail-label">Room Number:</span>
+              <span class="detail-value" style="color: var(--primary-color); font-size: 16px;">Room 304</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Hostel Block:</span>
+              <span class="detail-value">Block B (Senior Boys)</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Room Type:</span>
+              <span class="detail-value">2-Sharing (Double Bed)</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Allocated Bed:</span>
+              <span class="detail-value">Bed 02 (Window Side)</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Roommate:</span>
+              <span class="detail-value">Aman Verma (MCA 1st Yr)</span>
+            </div>
+            <div class="detail-item" style="border-top: 1px dashed var(--border-color); padding-top: 8px;">
+              <span class="detail-label">Block Warden:</span>
+              <span class="detail-value">Dr. S. K. Verma</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Warden Contact:</span>
+              <span class="detail-value">+91 98765 11223</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Mess Status -->
+        <div class="dash-card" id="messStatusCard">
+          <div class="dash-card-header">
+            <div class="dash-card-title">
+              <span class="badge-icon">&#127829;</span> Mess Status & Menu
+            </div>
+            <span class="badge badge-resolved">Mess Bill: Paid</span>
+          </div>
+
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+            <strong>Today's Menu (Block B Dining Hall):</strong>
+          </p>
+
+          <div class="mess-menu-grid">
+            <div class="mess-meal">
+              <div class="mess-meal-title">Breakfast (7:30 - 9:30 AM)</div>
+              <div class="mess-meal-desc">Aloo Paratha, Curd, Boiled Eggs / Sprouts, Tea & Coffee</div>
+            </div>
+            <div class="mess-meal">
+              <div class="mess-meal-title">Lunch (12:30 - 2:30 PM)</div>
+              <div class="mess-meal-desc">Paneer Butter Masala, Dal Tadka, Steamed Rice, Roti, Salad</div>
+            </div>
+            <div class="mess-meal">
+              <div class="mess-meal-title">Evening Snacks (5:00 - 6:00 PM)</div>
+              <div class="mess-meal-desc">Vegetable Samosa, Green Chutney, Hot Masala Tea</div>
+            </div>
+            <div class="mess-meal">
+              <div class="mess-meal-title">Dinner (7:30 - 9:30 PM)</div>
+              <div class="mess-meal-desc">Mix Veg Korma, Rajma, Jeera Rice, Chapati, Gulab Jamun</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Notices -->
+        <div class="dash-card" id="noticesCard">
+          <div class="dash-card-header">
+            <div class="dash-card-title">
+              <span class="badge-icon">&#128227;</span> Official Notices
+            </div>
+            <span class="badge badge-pending">3 New</span>
+          </div>
+
+          <div class="notice-list">
+            <div class="notice-item">
+              <span class="notice-date">Sep 01, 2026</span>
+              <div class="notice-text">
+                <strong>Wi-Fi Maintenance:</strong> Scheduled maintenance on Block B routers tonight from 1:00 AM to 3:00 AM.
+              </div>
+            </div>
+
+            <div class="notice-item">
+              <span class="notice-date">Aug 29, 2026</span>
+              <div class="notice-text">
+                <strong>Hostel Night & Cultural Eve:</strong> Annual resident gathering scheduled on Sep 15 in the central amphitheater.
+              </div>
+            </div>
+
+            <div class="notice-item">
+              <span class="notice-date">Aug 25, 2026</span>
+              <div class="notice-text">
+                <strong>Mandatory Gate Timings:</strong> All residents must return before 9:30 PM. Late entries require prior warden leave approval.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Actions Section -->
+      <div style="margin-top: 20px;">
+        <h3 style="font-size: 18px; color: var(--text-main); margin-bottom: 14px;">Quick Resident Actions</h3>
+        <div class="quick-action-grid">
+          <a href="forms.html" class="quick-action-btn" id="actionRegisterComplaint">
+            <div class="icon">&#9888;&#65039;</div>
+            <div>File Maintenance Complaint</div>
+          </a>
+          <a href="forms.html" class="quick-action-btn" id="actionApplyLeave">
+            <div class="icon">&#128197;</div>
+            <div>Apply for Night Leave / Gate Pass</div>
+          </a>
+          <a href="table.html" class="quick-action-btn" id="actionViewComplaints">
+            <div class="icon">&#128203;</div>
+            <div>View Complaint History</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="mainFooter">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Hostel Management System. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

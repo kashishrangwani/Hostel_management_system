@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration - Hostel Management System</title>
+  <meta name="description" content="Student registration for hostel room allotment and residency.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="header" id="mainHeader">
+    <div class="container navbar">
+      <a href="index.html" class="logo" id="siteLogo">
+        <div class="logo-badge">H</div>
+        <div class="logo-text">Hostel<span>Hub</span></div>
+      </a>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link" id="navHome">Home</a>
+        <a href="dashboard.html" class="nav-link" id="navDashboard">Dashboard</a>
+        <a href="forms.html" class="nav-link" id="navForms">Forms</a>
+        <a href="table.html" class="nav-link" id="navTable">Complaints</a>
+        <div class="nav-auth-buttons">
+          <a href="login.html" class="btn btn-outline btn-sm" id="navLoginBtn">Login</a>
+          <a href="register.html" class="btn btn-primary btn-sm" id="navRegisterBtn">Register</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Register Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="auth-wrapper" style="max-width: 600px;" id="registerCard">
+        <div class="auth-header">
+          <div class="section-tag">New Admission</div>
+          <h2>Student Registration</h2>
+          <p>Create your hostel resident account by filling in the details below.</p>
+        </div>
+
+        <form id="registerForm" novalidate>
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="regName" class="form-label">
+              Full Name <span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="regName" 
+              class="form-control" 
+              placeholder="e.g. Rahul Sharma" 
+              required
+            >
+            <span class="error-message" id="nameError"></span>
+          </div>
+
+          <!-- Email & Phone Row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regEmail" class="form-label">
+                Email Address <span class="required">*</span>
+              </label>
+              <input 
+                type="email" 
+                id="regEmail" 
+                class="form-control" 
+                placeholder="student@example.com" 
+                required
+              >
+              <span class="error-message" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="regPhone" class="form-label">
+                Phone Number (10 Digits) <span class="required">*</span>
+              </label>
+              <input 
+                type="tel" 
+                id="regPhone" 
+                class="form-control" 
+                placeholder="9876543210" 
+                maxlength="10"
+                required
+              >
+              <span class="error-message" id="phoneError"></span>
+            </div>
+          </div>
+
+          <!-- Course/Year & Gender Row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regCourse" class="form-label">
+                Course & Year <span class="required">*</span>
+              </label>
+              <select id="regCourse" class="form-control" required>
+                <option value="">-- Select Course / Year --</option>
+                <option value="MCA 1st Year">MCA - 1st Year</option>
+                <option value="MCA 2nd Year">MCA - 2nd Year</option>
+                <option value="B.Tech 1st Year">B.Tech - 1st Year</option>
+                <option value="B.Tech 2nd Year">B.Tech - 2nd Year</option>
+                <option value="B.Tech 3rd Year">B.Tech - 3rd Year</option>
+                <option value="B.Tech 4th Year">B.Tech - 4th Year</option>
+                <option value="BCA 1st Year">BCA - 1st Year</option>
+                <option value="BCA 2nd/3rd Year">BCA - 2nd/3rd Year</option>
+                <option value="MBA 1st/2nd Year">MBA - 1st/2nd Year</option>
+              </select>
+              <span class="error-message" id="courseError"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Gender <span class="required">*</span>
+              </label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="gender" value="Male" id="genderMale"> Male
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="gender" value="Female" id="genderFemale"> Female
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="gender" value="Other" id="genderOther"> Other
+                </label>
+              </div>
+              <span class="error-message" id="genderError"></span>
+            </div>
+          </div>
+
+          <!-- Password & Confirm Password Row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regPassword" class="form-label">
+                Password <span class="required">*</span>
+              </label>
+              <div class="input-password-wrapper">
+                <input 
+                  type="password" 
+                  id="regPassword" 
+                  class="form-control" 
+                  placeholder="Min 6 characters" 
+                  required
+                >
+                <button 
+                  type="button" 
+                  class="toggle-password-btn" 
+                  data-target="regPassword"
+                  aria-label="Toggle password visibility"
+                >
+                  Show
+                </button>
+              </div>
+              <span class="error-message" id="passwordError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="regConfirmPassword" class="form-label">
+                Confirm Password <span class="required">*</span>
+              </label>
+              <div class="input-password-wrapper">
+                <input 
+                  type="password" 
+                  id="regConfirmPassword" 
+                  class="form-control" 
+                  placeholder="Re-enter password" 
+                  required
+                >
+                <button 
+                  type="button" 
+                  class="toggle-password-btn" 
+                  data-target="regConfirmPassword"
+                  aria-label="Toggle confirm password visibility"
+                >
+                  Show
+                </button>
+              </div>
+              <span class="error-message" id="confirmPasswordError"></span>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary btn-block" id="registerSubmitBtn" style="margin-top: 10px;">
+            Create Resident Account
+          </button>
+
+          <div class="form-footer">
+            <p>Already have an account? <a href="login.html"><strong>Login here</strong></a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="mainFooter">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Hostel Management System. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

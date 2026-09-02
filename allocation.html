@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Allocation | Hostel Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="allocation.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-building-user"></i> Hostel Admin</h2>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="admin_dashboard.html"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+                <a href="#"><i class="fa-solid fa-user-graduate"></i> <span>Students</span></a>
+                <a href="allocation.html" class="active"><i class="fa-solid fa-key"></i> <span>Allocation</span></a>
+                <a href="fees.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Fees</span></a>
+                <a href="complaints.html"><i class="fa-solid fa-circle-exclamation"></i> <span>Complaints</span></a>
+                <a href="leave.html"><i class="fa-solid fa-calendar-minus"></i> <span>Leave</span></a>
+                <a href="notices.html"><i class="fa-solid fa-bullhorn"></i> <span>Notices</span></a>
+                <a href="#"><i class="fa-solid fa-chart-pie"></i> <span>Reports</span></a>
+            </nav>
+
+            <div class="logout-wrapper">
+                <a href="#" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <header class="top-nav">
+                <div class="welcome-text">
+                    <h1>Room Allocation</h1>
+                    <p>Comprehensive room assignment and availability tracking.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar-group">
+                        <div class="avatar"></div>
+                        <span class="profile-name">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- TOP SECTION: FORM & AVAILABLE ROOMS -->
+            <div class="top-grid">
+                
+                <!-- 1. ALLOCATION FORM -->
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-bed"></i> Allocate New Room</h3>
+                    </div>
+                    <form id="allocationForm">
+                        <div class="form-group">
+                            <label>Student Name / ID</label>
+                            <select required>
+                                <option value="">Search Student...</option>
+                                <option value="ST201">Aiden Pearce (ST201)</option>
+                                <option value="ST202">Zoe Carter (ST202)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Hostel Block</label>
+                                <select required>
+                                    <option value="">Select Block</option>
+                                    <option value="A">Block A</option>
+                                    <option value="B">Block B</option>
+                                </select>
+                            </div>
+                            <div class="form-group half">
+                                <label>Floor</label>
+                                <select required>
+                                    <option value="">Select Floor</option>
+                                    <option value="1">1st Floor</option>
+                                    <option value="2">2nd Floor</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Room Number</label>
+                                <select required>
+                                    <option value="">Select Room</option>
+                                    <option value="A-101">A-101</option>
+                                    <option value="A-102">A-102</option>
+                                </select>
+                            </div>
+                            <div class="form-group half">
+                                <label>Bed Number</label>
+                                <select required>
+                                    <option value="">Select Bed</option>
+                                    <option value="Bed 1">Bed 1</option>
+                                    <option value="Bed 2">Bed 2</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Allocation Date</label>
+                            <input type="date" id="newAllocDate" required>
+                        </div>
+
+                        <button type="submit" class="publish-btn w-100">ALLOCATE ROOM</button>
+                    </form>
+                </div>
+
+                <!-- 2. AVAILABLE ROOMS -->
+                <div class="card availability-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-list-check"></i> Available Rooms</h3>
+                    </div>
+                    <div class="status-legend">
+                        <span><i class="fa-solid fa-circle text-green"></i> Available</span>
+                        <span><i class="fa-solid fa-circle text-yellow"></i> Partial</span>
+                        <span><i class="fa-solid fa-circle text-red"></i> Full</span>
+                        <span><i class="fa-solid fa-circle text-gray"></i> Maint.</span>
+                    </div>
+                    <div class="table-responsive short-table">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Room</th>
+                                    <th>Floor</th>
+                                    <th>Capacity</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>A-101</strong></td>
+                                    <td>1</td>
+                                    <td>4</td>
+                                    <td><span class="status-text"><i class="fa-solid fa-circle text-yellow"></i> 2 Beds</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>A-102</strong></td>
+                                    <td>1</td>
+                                    <td>4</td>
+                                    <td><span class="status-text"><i class="fa-solid fa-circle text-yellow"></i> 1 Bed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>A-201</strong></td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td><span class="status-text"><i class="fa-solid fa-circle text-green"></i> 3 Beds</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>B-105</strong></td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td><span class="status-text"><i class="fa-solid fa-circle text-red"></i> Full</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>C-301</strong></td>
+                                    <td>3</td>
+                                    <td>2</td>
+                                    <td><span class="status-text"><i class="fa-solid fa-circle text-gray"></i> Maint.</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. CURRENT ALLOCATIONS -->
+            <div class="card table-card mt-30">
+                <div class="card-header">
+                    <h3>Current Room Allocations</h3>
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="allocationSearch" placeholder="Search Student, Room or ID...">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="currentAllocationsTable">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Student ID</th>
+                                <th>Room</th>
+                                <th>Bed</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">M</div>
+                                        <span>Mason Reed</span>
+                                    </div>
+                                </td>
+                                <td>ST101</td>
+                                <td><strong>A-101</strong></td>
+                                <td>Bed 1</td>
+                                <td>
+                                    <div class="action-buttons text-sm">
+                                        <button class="view-btn"><i class="fa-solid fa-eye"></i> View</button>
+                                        <button class="edit-btn open-change-modal" data-name="Mason Reed" data-room="A-101" data-bed="Bed 1"><i class="fa-solid fa-shuffle"></i> Change</button>
+                                        <button class="delete-btn open-vacate-modal" data-name="Mason Reed" data-room="A-101" data-bed="Bed 1"><i class="fa-solid fa-right-from-bracket"></i> Vacate</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">C</div>
+                                        <span>Caleb Frost</span>
+                                    </div>
+                                </td>
+                                <td>ST102</td>
+                                <td><strong>A-101</strong></td>
+                                <td>Bed 2</td>
+                                <td>
+                                    <div class="action-buttons text-sm">
+                                        <button class="view-btn"><i class="fa-solid fa-eye"></i> View</button>
+                                        <button class="edit-btn open-change-modal" data-name="Caleb Frost" data-room="A-101" data-bed="Bed 2"><i class="fa-solid fa-shuffle"></i> Change</button>
+                                        <button class="delete-btn open-vacate-modal" data-name="Caleb Frost" data-room="A-101" data-bed="Bed 2"><i class="fa-solid fa-right-from-bracket"></i> Vacate</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">H</div>
+                                        <span>Harper Jin</span>
+                                    </div>
+                                </td>
+                                <td>ST103</td>
+                                <td><strong>B-105</strong></td>
+                                <td>Bed 1</td>
+                                <td>
+                                    <div class="action-buttons text-sm">
+                                        <button class="view-btn"><i class="fa-solid fa-eye"></i> View</button>
+                                        <button class="edit-btn open-change-modal" data-name="Harper Jin" data-room="B-105" data-bed="Bed 1"><i class="fa-solid fa-shuffle"></i> Change</button>
+                                        <button class="delete-btn open-vacate-modal" data-name="Harper Jin" data-room="B-105" data-bed="Bed 1"><i class="fa-solid fa-right-from-bracket"></i> Vacate</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- 4. CHANGE ROOM MODAL -->
+    <div class="modal-overlay" id="changeRoomModal">
+        <div class="modal-box">
+            <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <h2>Change Room</h2>
+            </div>
+            <div class="modal-body">
+                <div class="student-details mb-20">
+                    <p><strong>Student:</strong> <span id="cr-studentName"></span></p>
+                    <p><strong>Current Allocation:</strong> <span id="cr-currentRoom"></span> (<span id="cr-currentBed"></span>)</p>
+                </div>
+                <form id="changeRoomForm">
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>New Room</label>
+                            <select required>
+                                <option value="">Select Room</option>
+                                <option value="A-201">A-201</option>
+                                <option value="A-102">A-102</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label>New Bed</label>
+                            <select required>
+                                <option value="">Select Bed</option>
+                                <option value="Bed 1">Bed 1</option>
+                                <option value="Bed 2">Bed 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Reason for Change</label>
+                        <input type="text" placeholder="e.g., Room maintenance" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn close-modal-btn-secondary">Cancel</button>
+                <button type="submit" form="changeRoomForm" class="publish-btn bg-blue">CHANGE ROOM</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. VACATE ROOM MODAL -->
+    <div class="modal-overlay" id="vacateRoomModal">
+        <div class="modal-box">
+            <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <h2>Vacate Room</h2>
+            </div>
+            <div class="modal-body">
+                <div class="student-details mb-20 border-red">
+                    <p><strong>Student:</strong> <span id="vr-studentName"></span></p>
+                    <p><strong>Room:</strong> <span id="vr-currentRoom"></span> | <strong>Bed:</strong> <span id="vr-currentBed"></span></p>
+                </div>
+                <form id="vacateRoomForm">
+                    <div class="form-group">
+                        <label>Reason</label>
+                        <input type="text" placeholder="e.g., Hostel leaving, Semester end" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn close-modal-btn-secondary">Cancel</button>
+                <button type="submit" form="vacateRoomForm" class="publish-btn bg-red">VACATE ROOM</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="allocation.js"></script>
+</body>
+</html>

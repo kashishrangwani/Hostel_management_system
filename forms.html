@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hostel Forms - Complaint & Leave Application</title>
+  <meta name="description" content="Submit maintenance complaints and apply for night leave / gate passes.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="header" id="mainHeader">
+    <div class="container navbar">
+      <a href="index.html" class="logo" id="siteLogo">
+        <div class="logo-badge">H</div>
+        <div class="logo-text">Hostel<span>Hub</span></div>
+      </a>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link" id="navHome">Home</a>
+        <a href="dashboard.html" class="nav-link" id="navDashboard">Dashboard</a>
+        <a href="forms.html" class="nav-link active" id="navForms">Forms</a>
+        <a href="table.html" class="nav-link" id="navTable">Complaints</a>
+        <div class="nav-auth-buttons">
+          <a href="dashboard.html" class="btn btn-outline btn-sm">My Dashboard</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content: Forms Section -->
+  <main class="main-content">
+    <div class="container">
+
+      <div class="section-header" style="margin-bottom: 30px;">
+        <span class="section-tag">Student Services</span>
+        <h1 class="section-title">Hostel Online Forms</h1>
+        <p class="section-subtitle">Submit room maintenance tickets or apply for night out/weekend leave directly to the warden office.</p>
+      </div>
+
+      <div class="forms-container">
+
+        <!-- Form 1: Complaint Form -->
+        <div class="form-panel" id="complaintPanel">
+          <div class="panel-title">
+            <span>&#9888;&#65039;</span> Hostel Complaint Form
+          </div>
+          <p class="panel-subtitle">Report any maintenance or service issues in your room or common areas.</p>
+
+          <form id="complaintForm" novalidate>
+            <!-- Title -->
+            <div class="form-group">
+              <label for="complaintTitle" class="form-label">
+                Complaint Title <span class="required">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="complaintTitle" 
+                class="form-control" 
+                placeholder="e.g. Geyser not heating water in Room 304" 
+                required
+              >
+              <span class="error-message" id="complaintTitleError"></span>
+            </div>
+
+            <!-- Category Dropdown -->
+            <div class="form-group">
+              <label for="complaintCategory" class="form-label">
+                Category <span class="required">*</span>
+              </label>
+              <select id="complaintCategory" class="form-control" required>
+                <option value="">-- Select Complaint Category --</option>
+                <option value="Electrical">Electrical (Fan, Light, Socket, Geyser)</option>
+                <option value="Plumbing">Plumbing (Tap, Shower, Flush, Leakage)</option>
+                <option value="Wi-Fi / Internet">Wi-Fi & Internet Connectivity</option>
+                <option value="Mess / Food">Mess & Dining Quality</option>
+                <option value="Room Cleaning">Housekeeping / Room Cleaning</option>
+                <option value="Furniture">Carpentry / Study Table / Bed</option>
+                <option value="Security / Other">Security & General Discipline</option>
+              </select>
+              <span class="error-message" id="complaintCategoryError"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label for="complaintDesc" class="form-label">
+                Detailed Description <span class="required">*</span>
+              </label>
+              <textarea 
+                id="complaintDesc" 
+                class="form-control" 
+                placeholder="Please describe the issue in detail (e.g. floor, specific fixture, timing of failure)..." 
+                rows="4" 
+                required
+              ></textarea>
+              <span class="error-message" id="complaintDescError"></span>
+            </div>
+
+            <!-- Submit Complaint -->
+            <button type="submit" class="btn btn-primary btn-block" id="submitComplaintBtn">
+              Submit Complaint Ticket
+            </button>
+            
+            <div style="text-align: center; margin-top: 12px;">
+              <a href="table.html" style="font-size: 13px; font-weight: 600;">View Existing Complaints History &rarr;</a>
+            </div>
+          </form>
+        </div>
+
+        <!-- Form 2: Leave Application Form -->
+        <div class="form-panel" id="leavePanel">
+          <div class="panel-title">
+            <span>&#128197;</span> Leave Application Form
+          </div>
+          <p class="panel-subtitle">Apply for weekend stay, festival vacation, or medical leave pass.</p>
+
+          <form id="leaveForm" novalidate>
+            <!-- Dates Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="leaveFromDate" class="form-label">
+                  From Date <span class="required">*</span>
+                </label>
+                <input 
+                  type="date" 
+                  id="leaveFromDate" 
+                  class="form-control" 
+                  required
+                >
+                <span class="error-message" id="fromDateError"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="leaveToDate" class="form-label">
+                  To Date <span class="required">*</span>
+                </label>
+                <input 
+                  type="date" 
+                  id="leaveToDate" 
+                  class="form-control" 
+                  required
+                >
+                <span class="error-message" id="toDateError"></span>
+              </div>
+            </div>
+
+            <!-- Reason -->
+            <div class="form-group">
+              <label for="leaveReason" class="form-label">
+                Reason for Leave <span class="required">*</span>
+              </label>
+              <textarea 
+                id="leaveReason" 
+                class="form-control" 
+                placeholder="Explain the purpose of your leave (e.g. going home for festival, family function, medical reasons)..." 
+                rows="4" 
+                required
+              ></textarea>
+              <span class="error-message" id="leaveReasonError"></span>
+            </div>
+
+            <!-- Submit Leave Application -->
+            <button type="submit" class="btn btn-primary btn-block" id="submitLeaveBtn" style="margin-top: 18px;">
+              Submit Leave Application
+            </button>
+
+            <div style="margin-top: 14px; padding: 10px; background-color: var(--bg-subtle); border-radius: var(--radius-sm); font-size: 12px; color: var(--text-muted);">
+              <strong>Note:</strong> Leave applications must be submitted at least 24 hours prior. Parental confirmation SMS may be sent for overnight leaves.
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="mainFooter">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Hostel Management System. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

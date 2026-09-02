@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Hostel Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="admin_dashboard.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-building-user"></i> Hostel Admin</h2>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="admin_dashboard.html" class="active"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+                <a href="students.html"><i class="fa-solid fa-user-graduate"></i> <span>Students</span></a>
+                <a href="allocation.html"><i class="fa-solid fa-key"></i> <span>Allocation</span></a>
+                <a href="fees.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Fees</span></a>
+                <a href="complaints.html"><i class="fa-solid fa-circle-exclamation"></i> <span>Complaints</span></a>
+                <a href="leave.html"><i class="fa-solid fa-calendar-minus"></i> <span>Leave</span></a>
+                <a href="notices.html"><i class="fa-solid fa-bullhorn"></i> <span>Notices</span></a>
+                <a href="reports.html"><i class="fa-solid fa-chart-pie"></i> <span>Reports</span></a>
+            </nav>
+
+            <div class="logout-wrapper">
+                <a href="auth.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- HEADER -->
+            <header class="top-nav">
+                <div class="welcome-text">
+                    <h1>Welcome, Admin</h1>
+                    <p id="currentDate">Loading date...</p>
+                </div>
+                <div class="user-profile">
+                    <div class="notification">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="avatar-group">
+                        <div class="avatar"></div>
+                        <span class="profile-name">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 2. PRIMARY STATISTICS -->
+            <div class="stats-grid primary-stats">
+                <div class="stat-card">
+                    <div class="icon-wrap blue"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-info">
+                        <p>Total Students</p>
+                        <h4>120</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-wrap orange"><i class="fa-solid fa-door-closed"></i></div>
+                    <div class="stat-info">
+                        <p>Total Rooms</p>
+                        <h4>60</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-wrap green"><i class="fa-solid fa-bed"></i></div>
+                    <div class="stat-info">
+                        <p>Total Beds</p>
+                        <h4>240</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-wrap purple"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="stat-info">
+                        <p>Occupancy Rate</p>
+                        <h4>75%</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. SECONDARY STATISTICS -->
+            <div class="stats-grid secondary-stats">
+                <div class="stat-card mini">
+                    <p>Pending Fees</p>
+                    <h4 class="text-red">₹ 1,50,000</h4>
+                </div>
+                <div class="stat-card mini">
+                    <p>Pending Leaves</p>
+                    <h4 class="text-orange">7 Requests</h4>
+                </div>
+                <div class="stat-card mini">
+                    <p>Open Complaints</p>
+                    <h4 class="text-orange">8 Issues</h4>
+                </div>
+                <div class="stat-card mini">
+                    <p>Without Room</p>
+                    <h4 class="text-red">15 Students</h4>
+                </div>
+            </div>
+
+            <!-- 4. VISUALS (CHARTS) -->
+            <div class="charts-grid">
+                <div class="card chart-container">
+                    <h3>Room Occupancy</h3>
+                    <canvas id="occupancyChart"></canvas>
+                </div>
+                <div class="card chart-container">
+                    <h3>Students by Course</h3>
+                    <canvas id="courseChart"></canvas>
+                </div>
+                <div class="card chart-container">
+                    <h3>Fees Status</h3>
+                    <canvas id="feesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 5. RECENT INFORMATION -->
+            <div class="recent-grid">
+                
+                <div class="card list-card">
+                    <h3>Recent Allocations</h3>
+                    <div class="list-wrapper">
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>Chloe Brooks</strong>
+                                <span>Room A-101 (Bed 2)</span>
+                            </div>
+                            <small>Today</small>
+                        </div>
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>Leo Vance</strong>
+                                <span>Room B-205 (Bed 1)</span>
+                            </div>
+                            <small>Yesterday</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card list-card">
+                    <h3>Recent Activity</h3>
+                    <div class="list-wrapper">
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>Water Issue (Complaint)</strong>
+                                <span>Pending • C-10</span>
+                            </div>
+                            <small>2 hrs ago</small>
+                        </div>
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>Medical (Leave)</strong>
+                                <span>Approved • B-05</span>
+                            </div>
+                            <small>5 hrs ago</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card list-card">
+                    <h3>Active Notices</h3>
+                    <div class="list-wrapper">
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>Pest Control - Block A</strong>
+                                <span>10:00 AM to 05:00 PM</span>
+                            </div>
+                            <span class="status-dot green"></span>
+                        </div>
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>Dinner Timings Revision</strong>
+                                <span>Applies to all students</span>
+                            </div>
+                            <span class="status-dot green"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script src="admin_dashboard.js"></script>
+</body>
+</html>

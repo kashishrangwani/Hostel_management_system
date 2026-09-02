@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints | Hostel Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="complaints.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-building-user"></i> Hostel Admin</h2>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="admin_dashboard.html"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+                <a href="students.html"><i class="fa-solid fa-user-graduate"></i> <span>Students</span></a>
+                <a href="allocation.html"><i class="fa-solid fa-key"></i> <span>Room Allocation</span></a>
+                <a href="fees.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Fees</span></a>
+                <a href="leave.html"><i class="fa-solid fa-calendar-minus"></i> <span>Leave</span></a>
+                <a href="complaints.html" class="active"><i class="fa-solid fa-circle-exclamation"></i> <span>Complaints</span></a>
+                <a href="notices.html"><i class="fa-solid fa-bullhorn"></i> <span>Notices</span></a>
+                <a href="reports.html"><i class="fa-solid fa-chart-pie"></i> <span>Reports</span></a>
+            </nav>
+
+            <div class="logout-wrapper">
+                <a href="#" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- HEADER -->
+            <header class="top-nav">
+                <div class="welcome-text">
+                    <h1>Complaints Management</h1>
+                    <p>Receive, track, investigate, and resolve hostel issues.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar-group">
+                        <div class="avatar"></div>
+                        <span class="profile-name">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 1. COMPLAINT STATISTICS & CHART GRID -->
+            <div class="top-layout-grid">
+                
+                <!-- Stat Cards Column -->
+                <div class="stats-column">
+                    <div class="stat-card">
+                        <div class="icon-wrap purple"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="stat-info">
+                            <p>Total Complaints</p>
+                            <h4>28</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-wrap blue"><i class="fa-solid fa-bell"></i></div>
+                        <div class="stat-info">
+                            <p>New</p>
+                            <h4>5</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-wrap orange"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <div class="stat-info">
+                            <p>In Progress</p>
+                            <h4>8</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-wrap green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="stat-info">
+                            <p>Resolved</p>
+                            <h4>15</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Column -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3>Complaints by Category</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 2. COMPLAINT RECORDS TABLE -->
+            <div class="card table-card">
+                <div class="card-header">
+                    <h3>Complaint Records</h3>
+                </div>
+                
+                <!-- SEARCH & FILTER -->
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="complaintSearch" placeholder="Search Student, ID, Room...">
+                    </div>
+                    <select class="filter-dropdown" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Water">Water</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Cleanliness">Cleanliness</option>
+                        <option value="Internet">Wi-Fi/Internet</option>
+                    </select>
+                    <select class="filter-dropdown" id="statusFilter">
+                        <option value="all">All Statuses</option>
+                        <option value="new">New</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="complaintTable">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>ID</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-category="Electricity" data-status="new">
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">M</div>
+                                        <span>Maya Patel</span>
+                                    </div>
+                                </td>
+                                <td><strong>ST101</strong></td>
+                                <td>Electricity</td>
+                                <td>29 Aug 2026</td>
+                                <td><span class="status-badge new">New</span></td>
+                                <td><button class="view-btn open-modal-btn">View / Update</button></td>
+                            </tr>
+                            <tr data-category="Water" data-status="in-progress">
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">L</div>
+                                        <span>Leo Vance</span>
+                                    </div>
+                                </td>
+                                <td><strong>ST102</strong></td>
+                                <td>Water</td>
+                                <td>28 Aug 2026</td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td><button class="view-btn open-modal-btn">View / Update</button></td>
+                            </tr>
+                            <tr data-category="Maintenance" data-status="resolved">
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="tiny-avatar">C</div>
+                                        <span>Chloe Brooks</span>
+                                    </div>
+                                </td>
+                                <td><strong>ST103</strong></td>
+                                <td>Maintenance</td>
+                                <td>26 Aug 2026</td>
+                                <td><span class="status-badge resolved">Resolved</span></td>
+                                <td><button class="view-btn open-modal-btn">View / Update</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- COMPLAINT DETAILS & UPDATE MODAL -->
+    <div class="modal-overlay" id="complaintModal">
+        <div class="modal-box large-modal">
+            <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="modal-header">
+                <h2>Complaint Management</h2>
+                <span class="complaint-id">ID: CMP1025</span>
+            </div>
+            
+            <div class="modal-body dual-column">
+                
+                <!-- LEFT COLUMN: DETAILS & UPDATE FORM -->
+                <div class="left-panel">
+                    
+                    <div class="detail-block">
+                        <div class="detail-row">
+                            <span>Student:</span>
+                            <strong>Maya Patel (ST101)</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Room:</span>
+                            <strong>A-201</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Category:</span>
+                            <strong>Electricity</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Submitted:</span>
+                            <strong>29 Aug 2026</strong>
+                        </div>
+                    </div>
+
+                    <div class="desc-block mt-20">
+                        <h4>Complaint Description</h4>
+                        <p class="desc-text">The ceiling fan in the room is making a loud grinding noise and running very slowly. It has been happening for two days.</p>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- UPDATE SECTION -->
+                    <div class="update-section">
+                        <h4>Update Complaint</h4>
+                        <form id="updateComplaintForm">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="updateStatus" required>
+                                    <option value="new">New</option>
+                                    <option value="in-progress" selected>In Progress</option>
+                                    <option value="resolved">Resolved</option>
+                                    <option value="closed">Closed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Resolution / Remarks</label>
+                                <textarea id="updateRemarks" rows="3" placeholder="e.g., Maintenance staff dispatched to check the fan motor..." required></textarea>
+                            </div>
+                            <button type="submit" class="publish-btn bg-blue w-100">SAVE UPDATE</button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: HISTORY TIMELINE -->
+                <div class="right-panel">
+                    <h4>Complaint History</h4>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-purple"></div>
+                            <div class="timeline-content">
+                                <span class="time">29 Aug 2026, 09:30 AM</span>
+                                <p><strong>Complaint Submitted</strong></p>
+                                <small>Category: Electricity</small>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot bg-orange"></div>
+                            <div class="timeline-content">
+                                <span class="time">29 Aug 2026, 11:45 AM</span>
+                                <p><strong>Status Changed: In Progress</strong></p>
+                                <small>Admin assigned to electrician.</small>
+                            </div>
+                        </div>
+                        <div class="timeline-item empty">
+                            <div class="timeline-dot bg-gray"></div>
+                            <div class="timeline-content">
+                                <span class="time">Pending...</span>
+                                <p>Resolution</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="complaints.js"></script>
+</body>
+</html>

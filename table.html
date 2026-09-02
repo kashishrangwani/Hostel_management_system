@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complaint History - Hostel Management System</title>
+  <meta name="description" content="View and track hostel room complaint history and real-time status.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="header" id="mainHeader">
+    <div class="container navbar">
+      <a href="index.html" class="logo" id="siteLogo">
+        <div class="logo-badge">H</div>
+        <div class="logo-text">Hostel<span>Hub</span></div>
+      </a>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link" id="navHome">Home</a>
+        <a href="dashboard.html" class="nav-link" id="navDashboard">Dashboard</a>
+        <a href="forms.html" class="nav-link" id="navForms">Forms</a>
+        <a href="table.html" class="nav-link active" id="navTable">Complaints</a>
+        <div class="nav-auth-buttons">
+          <a href="forms.html" class="btn btn-primary btn-sm">+ New Complaint</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Table Page Content -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Page Header & Action -->
+      <div class="dashboard-header">
+        <div>
+          <h1 style="font-size: 24px; font-weight: 700; color: var(--text-main);">Complaint History & Status</h1>
+          <p style="font-size: 14px; color: var(--text-muted);">Real-time tracking of all reported room and hostel maintenance tickets.</p>
+        </div>
+        <div>
+          <a href="forms.html" class="btn btn-primary btn-sm" id="btnRegisterNewComplaint">&#43; File New Complaint</a>
+        </div>
+      </div>
+
+      <!-- Table Wrapper Card -->
+      <div class="table-wrapper" id="complaintsTableWrapper">
+        
+        <!-- Search and Filter Bar -->
+        <div class="table-header-bar">
+          <div class="table-header-title">
+            All Registered Tickets
+          </div>
+          
+          <div class="table-search-box">
+            <input 
+              type="text" 
+              id="tableSearchInput" 
+              class="form-control" 
+              placeholder="Search by keyword or category..." 
+              style="padding: 7px 12px; font-size: 13px; width: 220px;"
+            >
+            <select 
+              id="tableStatusFilter" 
+              class="form-control" 
+              style="padding: 7px 12px; font-size: 13px; width: 140px;"
+            >
+              <option value="All">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Table Container with Horizontal Scroll on Mobile -->
+        <div class="table-responsive-container">
+          <table class="responsive-table" id="complaintsTable">
+            <thead>
+              <tr>
+                <th style="width: 50%;">Complaint & Category</th>
+                <th style="width: 25%;">Status</th>
+                <th style="width: 25%;">Date Registered</th>
+              </tr>
+            </thead>
+            <tbody id="complaintTableBody">
+              <!-- Rendered dynamically by js/script.js -->
+              <tr>
+                <td colspan="3" style="text-align: center; padding: 30px;">Loading complaints data...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick Info / Legend Box -->
+      <div style="margin-top: 24px; display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; color: var(--text-muted);">
+        <div><strong>Status Legend:</strong></div>
+        <div><span class="badge badge-pending">Pending</span> — Ticket received by warden office</div>
+        <div><span class="badge badge-progress">In Progress</span> — Maintenance technician assigned</div>
+        <div><span class="badge badge-resolved">Resolved</span> — Work verified and closed</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="mainFooter">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Hostel Management System. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

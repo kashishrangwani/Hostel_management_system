@@ -1,0 +1,6 @@
+{
+  "name": "Hostel Management System",
+  "description": "A clean and responsive user-side hostel management system built with pure HTML5, CSS3, and Vanilla JavaScript.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notices | Hostel Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="notices.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <!-- SIDEBAR - LOCKED STRUCTURE -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-building-user"></i> Hostel Admin</h2>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="admin_dashboard.html"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+                <a href="students.html"><i class="fa-solid fa-user-graduate"></i> <span>Students</span></a>
+                <a href="allocation.html"><i class="fa-solid fa-key"></i> <span>Room Allocation</span></a>
+                <a href="fees.html"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Fees</span></a>
+                <a href="leave.html"><i class="fa-solid fa-calendar-minus"></i> <span>Leave</span></a>
+                <a href="complaints.html"><i class="fa-solid fa-circle-exclamation"></i> <span>Complaints</span></a>
+                <a href="notices.html" class="active"><i class="fa-solid fa-bullhorn"></i> <span>Notices</span></a>
+                <a href="reports.html"><i class="fa-solid fa-chart-pie"></i> <span>Reports</span></a>
+            </nav>
+
+            <div class="logout-wrapper">
+                <a href="#" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- HEADER -->
+            <header class="top-nav">
+                <div class="welcome-text">
+                    <h1>Hostel Notices</h1>
+                    <p>Create, schedule, and manage official announcements.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar-group">
+                        <div class="avatar"></div>
+                        <span class="profile-name">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 1. NOTICE STATISTICS (3 Cards) -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon-wrap blue"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="stat-info">
+                        <p>Total Notices</p>
+                        <h4>24</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-wrap green"><i class="fa-solid fa-check-double"></i></div>
+                    <div class="stat-info">
+                        <p>Published</p>
+                        <h4>20</h4>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-wrap orange"><i class="fa-regular fa-clock"></i></div>
+                    <div class="stat-info">
+                        <p>Scheduled</p>
+                        <h4>4</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. PUBLISHED NOTICES TABLE -->
+            <div class="card table-card">
+                <div class="card-header">
+                    <h3>Notice Board</h3>
+                    <!-- 2. CREATE NOTICE BUTTON -->
+                    <button class="action-btn" id="openCreateModal"><i class="fa-solid fa-plus"></i> Create Notice</button>
+                </div>
+                
+                <!-- 8. SEARCH & FILTER -->
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="noticeSearch" placeholder="Search notice title or keyword...">
+                    </div>
+                    <select class="filter-dropdown" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="General">General</option>
+                        <option value="Fees">Fees</option>
+                        <option value="Hostel Rules">Hostel Rules</option>
+                        <option value="Mess">Mess</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Events">Events</option>
+                        <option value="Emergency">Emergency</option>
+                    </select>
+                    <select class="filter-dropdown" id="statusFilter">
+                        <option value="all">All Statuses</option>
+                        <option value="published">Published</option>
+                        <option value="scheduled">Scheduled</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="noticeTable">
+                        <thead>
+                            <tr>
+                                <th>Notice Title</th>
+                                <th>Category</th>
+                                <th>Audience</th>
+                                <th>Publish Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-category="Fees" data-status="published">
+                                <td><strong>Fee Payment Deadline</strong></td>
+                                <td>Fees</td>
+                                <td>All Students</td>
+                                <td>29 Aug 2026</td>
+                                <td><span class="status-badge published">Published</span></td>
+                                <td><button class="view-btn open-view-modal">View / Manage</button></td>
+                            </tr>
+                            <tr data-category="Maintenance" data-status="published">
+                                <td><strong>Water Supply Interruption</strong></td>
+                                <td>Maintenance</td>
+                                <td>Block A</td>
+                                <td>28 Aug 2026</td>
+                                <td><span class="status-badge published">Published</span></td>
+                                <td><button class="view-btn open-view-modal">View / Manage</button></td>
+                            </tr>
+                            <tr data-category="General" data-status="scheduled">
+                                <td><strong>Hostel Inspection</strong></td>
+                                <td>General</td>
+                                <td>All Students</td>
+                                <td>02 Sep 2026</td>
+                                <td><span class="status-badge scheduled">Scheduled</span></td>
+                                <td><button class="view-btn open-view-modal">View / Manage</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- 2. CREATE NOTICE MODAL -->
+    <div class="modal-overlay" id="createNoticeModal">
+        <div class="modal-box">
+            <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="modal-header">
+                <h2>Create Notice</h2>
+            </div>
+            
+            <div class="modal-body">
+                <form id="createNoticeForm">
+                    <div class="form-group">
+                        <label>Notice Title</label>
+                        <input type="text" placeholder="e.g., Mandatory Meeting in Common Room" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>Category</label>
+                            <select required>
+                                <option value="General">General</option>
+                                <option value="Fees">Fees</option>
+                                <option value="Hostel Rules">Hostel Rules</option>
+                                <option value="Mess">Mess</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Events">Events</option>
+                                <option value="Emergency">Emergency</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label>Target Audience</label>
+                            <select required>
+                                <option value="All Students">All Students</option>
+                                <option value="Block A">Specific Block: Block A</option>
+                                <option value="Block B">Specific Block: Block B</option>
+                                <option value="1st Years">Specific Year: 1st Years</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Publish Date (Select future date to schedule)</label>
+                        <input type="date" id="publishDateInput" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Notice Description</label>
+                        <textarea rows="5" placeholder="Write the complete announcement here..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn close-modal-btn-secondary">Cancel</button>
+                <button type="submit" form="createNoticeForm" class="publish-btn bg-blue">PUBLISH NOTICE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. & 6. NOTICE DETAILS & MANAGEMENT MODAL -->
+    <div class="modal-overlay" id="viewNoticeModal">
+        <div class="modal-box">
+            <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="modal-header">
+                <h2>Notice Details</h2>
+            </div>
+            
+            <div class="modal-body">
+                
+                <h3 class="notice-detail-title">Fee Payment Deadline</h3>
+                
+                <div class="notice-meta-grid">
+                    <div>
+                        <span>Category:</span>
+                        <strong>Fees</strong>
+                    </div>
+                    <div>
+                        <span>Published:</span>
+                        <strong>29 Aug 2026</strong>
+                    </div>
+                    <div>
+                        <span>Audience:</span>
+                        <strong>All Students</strong>
+                    </div>
+                    <div>
+                        <span>Status:</span>
+                        <strong class="text-green">Published</strong>
+                    </div>
+                </div>
+
+                <hr class="divider">
+                
+                <div class="notice-content-box">
+                    <p>All hostel fees for the upcoming semester must be paid in full before 5th September 2026. Late payments will incur a daily penalty fee as per the hostel regulations.</p>
+                    <p>Please clear your dues via the online portal or visit the accounts office during working hours.</p>
+                </div>
+
+                <hr class="divider">
+
+            </div>
+            
+            <div class="modal-actions space-between">
+                <button type="button" class="action-text-btn text-red"><i class="fa-solid fa-trash"></i> Remove Notice</button>
+                <div class="right-actions">
+                    <button type="button" class="cancel-btn close-modal-btn-secondary">Close</button>
+                    <button type="button" class="publish-btn bg-orange"><i class="fa-solid fa-pen"></i> Edit Notice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="notices.js"></script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #DFF3F5, #F3FAFB);
+    color: #1F2933;
+}
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-box {
+    position: relative;
+    width: 900px;
+    height: 600px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(22, 125, 141, 0.18);
+    animation: slideDown 0.8s ease-out;
+    transition: width 0.7s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+.login-form {
+    left: 0;
+    opacity: 1;
+    z-index: 2;
+}
+
+/* FIX: Changed justify-content to flex-start so tall forms don't get cut off at the top */
+.signup-form {
+    left: 50%;
+    opacity: 0;
+    z-index: 1;
+    overflow-y: auto;
+    justify-content: flex-start;
+}
+
+/* ================= CUSTOM SCROLLBAR ================= */
+.signup-form::-webkit-scrollbar {
+    width: 6px;
+}
+.signup-form::-webkit-scrollbar-track {
+    background: transparent;
+}
+.signup-form::-webkit-scrollbar-thumb {
+    background: rgba(22, 125, 141, 0.3);
+    border-radius: 10px;
+}
+.signup-form::-webkit-scrollbar-thumb:hover {
+    background: rgba(22, 125, 141, 0.6);
+}
+
+h1 {
+    text-align: center;
+    color: #167D8D;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-top: 10px;
+}
+
+h2 {
+    text-align: center;
+    color: #116270;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #66757A;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.form-container form > label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #1F2933;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid #CBD5E1;
+    border-radius: 7px;
+    transition: 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #167D8D;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(22, 125, 141, 0.12);
+}
+
+input::placeholder {
+    color: #8A969B;
+}
+
+span {
+    display: block;
+    color: #DC2626;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 11px;
+    margin-top: 18px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 7px;
+    background: #167D8D;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.form-container button:hover {
+    background: #116270;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(22, 125, 141, 0.25);
+}
+
+.gender {
+    display: flex;
+    gap: 18px;
+    margin-top: 5px;
+}
+
+.gender label {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+    margin: 0 !important;
+    font-weight: 400 !important;
+}
+
+.gender input {
+    width: auto;
+}
+
+.switch-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    z-index: 20;
+    overflow: hidden;
+    transition: transform 0.7s ease;
+}
+
+.switch-panel {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    display: flex;
+    background: linear-gradient(135deg, #167D8D, #116270);
+    transition: transform 0.7s ease;
+}
+
+.switch-content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: white;
+    text-align: center;
+}
+
+.switch-content h2 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.switch-content p {
+    max-width: 280px;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.outline-btn {
+    width: auto !important;
+    min-width: 120px;
+    padding: 10px 25px;
+    margin: 0 !important;
+    background: transparent !important;
+    border: 1px solid white !important;
+    border-radius: 25px !important;
+    color: white !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+.outline-btn:hover {
+    background: white !important;
+    color: #167D8D !important;
+    transform: translateY(-2px);
+}
+
+.auth-box.signup-active .login-form {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* FIX: Replaced translateX(-100%) with 0 so the form stays visible on the right side */
+.auth-box.signup-active .signup-form {
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 3;
+}
+
+.auth-box.signup-active .switch-container {
+    transform: translateX(-100%);
+}
+
+.auth-box.signup-active .switch-panel {
+    transform: translateX(50%);
+}
+
+/* ================================================= */
+/*                     ADMIN MODE                    */
+/* ================================================= */
+
+.auth-box.admin-mode {
+    width: 450px;
+}
+
+.auth-box.admin-mode .switch-container {
+    display: none;
+}
+
+.auth-box.admin-mode .login-form {
+    width: 100%;
+    left: 0;
+    transform: none;
+    opacity: 1;
+}
+
+.auth-box.admin-mode .signup-form {
+    display: none;
+}
+
+@media (max-width: 750px) {
+    .auth-box {
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+        min-height: 600px;
+    }
+    .form-container {
+        position: relative;
+        width: 100%;
+        left: 0;
+        min-height: 600px;
+        padding: 35px 30px;
+    }
+    .login-form {
+        display: flex;
+    }
+    .signup-form {
+        display: none;
+        opacity: 1;
+        left: 0;
+    }
+    .switch-container {
+        display: none;
+    }
+    .auth-box.signup-active .login-form {
+        display: none;
+        transform: none;
+    }
+    .auth-box.signup-active .signup-form {
+        display: flex;
+        transform: none;
+    }
+    .auth-box.admin-mode .signup-form {
+        display: none;
+    }
+    .auth-box.admin-mode .login-form {
+        display: flex;
+        width: 100%;
+        left: 0;
+    }
+}

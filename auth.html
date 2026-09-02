@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box" id="authBox">
+
+            <!-- ================= LOGIN ================= -->
+            <div class="form-container login-form">
+                <h2>Welcome Back!</h2>
+                <p class="subtitle">Login to your account</p>
+
+                <form id="loginForm">
+                    <label for="role">Login As</label>
+                    <select id="role">
+                        <option value="">Select Role</option>
+                        <option value="student">Student</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <span id="roleError"></span>
+
+                    <label for="loginEmail">Email</label>
+                    <input type="text" id="loginEmail" placeholder="Enter your email">
+                    <span id="loginEmailError"></span>
+
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                    <span id="loginPasswordError"></span>
+
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+
+            <!-- ================= REGISTRATION ================= -->
+            <div class="form-container signup-form">
+                <h2>Create Account</h2>
+                <p class="subtitle">Register as a student</p>
+
+                <form id="signupForm">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name">
+                    <span id="nameError"></span>
+
+                    <label for="signupEmail">Email</label>
+                    <input type="text" id="signupEmail" placeholder="Enter your email">
+                    <span id="signupEmailError"></span>
+
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" placeholder="Enter 10-digit phone number">
+                    <span id="phoneError"></span>
+
+                    <label>Gender</label>
+                    <div class="gender">
+                        <label><input type="radio" name="gender" value="Male">Male</label>
+                        <label><input type="radio" name="gender" value="Female">Female</label>
+                        <label><input type="radio" name="gender" value="Other">Other</label>
+                    </div>
+                    <span id="genderError"></span>
+
+                    <label for="course">Course</label>
+                    <select id="course">
+                        <option value="">Select Course</option>
+                        <option value="BCA">BCA</option>
+                        <option value="MCA">MCA</option>
+                        <option value="BSc IT">BSc IT</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span id="courseError"></span>
+
+                    <label for="year">Year</label>
+                    <select id="year">
+                        <option value="">Select Year</option>
+                        <option value="First Year">First Year</option>
+                        <option value="Second Year">Second Year</option>
+                        <option value="Third Year">Third Year</option>
+                    </select>
+                    <span id="yearError"></span>
+
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password">
+                    <span id="signupPasswordError"></span>
+
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password">
+                    <span id="confirmPasswordError"></span>
+
+                    <button type="submit">Create Account</button>
+                </form>
+            </div>
+
+            <!-- ================= TEAL SWITCH PANEL ================= -->
+            <div class="switch-container">
+                <div class="switch-panel">
+
+                    <!-- LEFT SIDE -->
+                    <div class="switch-content login-switch">
+                        <h2>Already registered?</h2>
+                        <p>Login to access your account.</p>
+                        <button type="button" class="outline-btn" id="showLogin">
+                            Login
+                        </button>
+                    </div>
+
+                    <!-- RIGHT SIDE -->
+                    <div class="switch-content signup-switch">
+                        <h2>Don't have an account?</h2>
+                        <p>Register as a student</p>
+                        <button type="button" class="outline-btn" id="showSignup">
+                            Sign Up
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="auth.js"></script>
+</body>
+</html>
