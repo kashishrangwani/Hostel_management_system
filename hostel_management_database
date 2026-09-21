@@ -1,0 +1,286 @@
+CREATE DATABASE hostel_management;
+USE hostel_management;
+
+CREATE TABLE students (
+    student_id   INT AUTO_INCREMENT PRIMARY KEY,
+    email        VARCHAR(100) NOT NULL UNIQUE,
+    name         VARCHAR(100) NOT NULL,
+    phone        VARCHAR(15)  NOT NULL UNIQUE,
+    gender       VARCHAR(20)  NOT NULL,
+    course       VARCHAR(50)  NOT NULL,
+    year         VARCHAR(50)  NOT NULL,
+    password     VARCHAR(255) NOT NULL,
+    created_at   DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE rooms (
+    room_number  VARCHAR(20) PRIMARY KEY,
+    floor        INT NOT NULL,
+    capacity     INT NOT NULL,
+    status       VARCHAR(50),
+    created_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at   DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE allocations (
+    allocation_id    INT AUTO_INCREMENT PRIMARY KEY,
+    student_id       INT NOT NULL,
+    room_number      VARCHAR(20) NOT NULL,
+    bed_number       VARCHAR(20) NOT NULL,
+    allocation_date  DATE NOT NULL,
+    reason           TEXT,
+    status           VARCHAR(50) NOT NULL DEFAULT 'active',
+    created_at       DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_alloc_student FOREIGN KEY (student_id)
+        REFERENCES students(student_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_alloc_room FOREIGN KEY (room_number)
+        REFERENCES rooms(room_number) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+    UNIQUE KEY uq_room_bed (room_number, bed_number)
+);
+
+CREATE TABLE fees (
+    fee_id       INT AUTO_INCREMENT PRIMARY KEY,
+    student_id   INT NOT NULL,
+    room_number  VARCHAR(20) NOT NULL,
+    total_fee    DECIMAL(10,2) NOT NULL,
+    paid         DECIMAL(10,2) NOT NULL DEFAULT 0,
+    due          DECIMAL(10,2) NOT NULL DEFAULT 0,
+    status       VARCHAR(50) NOT NULL DEFAULT 'pending',
+    created_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at   DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_fees_student FOREIGN KEY (student_id)
+        REFERENCES students(student_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_fees_room FOREIGN KEY (room_number)
+        REFERENCES rooms(room_number) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE payment_history (
+    student_id      INT NOT NULL,
+    fee_id          INT,
+    date            DATE NOT NULL,
+    amount          DECIMAL(10,2) NOT NULL,
+    method          VARCHAR(50) NOT NULL,
+    transaction_id  VARCHAR(100) NOT NULL UNIQUE,
+    created_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_payment_student FOREIGN KEY (student_id)
+        REFERENCES students(student_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_payment_fee FOREIGN KEY (fee_id)
+        REFERENCES fees(fee_id) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+CREATE TABLE complaints (
+    complaint_no  INT AUTO_INCREMENT primary key,
+    student_id    INT NOT NULL,
+    room_number   VARCHAR(20) NOT NULL,
+    category      VARCHAR(50) NOT NULL,
+    submitted     DATE NOT NULL,
+    description   TEXT NOT NULL,
+    status        VARCHAR(50) NOT NULL,
+    remarks       TEXT,
+    created_at    DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at    DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_complaint_student FOREIGN KEY (student_id)
+        REFERENCES students(student_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_complaint_room FOREIGN KEY (room_number)
+        REFERENCES rooms(room_number) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE leaves (
+    leave_no     INT AUTO_INCREMENT primary key,
+    student_id   INT NOT NULL,
+    room_number  VARCHAR(20) NOT NULL,
+    type         VARCHAR(50) NOT NULL,
+    from_date    DATE NOT NULL,
+    to_date      DATE NOT NULL,
+    reason       TEXT,
+    status       VARCHAR(50),
+    created_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_leave_student FOREIGN KEY (student_id)
+        REFERENCES students(student_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_leave_room FOREIGN KEY (room_number)
+        REFERENCES rooms(room_number) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+    CHECK (to_date >= from_date)
+);
+
+CREATE TABLE notices (
+    notice_id     INT AUTO_INCREMENT PRIMARY KEY,
+    title         VARCHAR(255) NOT NULL,
+    category      VARCHAR(50) NOT NULL,
+    start_date  DATE NOT NULL,
+    end_date  DATE NOT NULL,
+    description   TEXT,
+    status        VARCHAR(50),
+    created_at    DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE admin (
+    username     VARCHAR(25) NOT NULL UNIQUE,
+    password     VARCHAR(255) NOT NULL
+);
+
+INSERT INTO admin (username, password)
+VALUES ('admin', '$2b$10$6R9T/tCAikVXtrg3aTFVG.ApjMafWz3z9JT2PL6TtVdJQSafAMxNK')
+ON DUPLICATE KEY UPDATE password = VALUES(password);
+
+USE hostel_management;
+
+-- =========================================
+-- 1. STUDENTS
+-- =========================================
+
+INSERT INTO students
+(email, name, phone, gender, course, year, password)
+VALUES
+('riya.sharma@gmail.com', 'Riya Sharma', '9876543210', 'Female', 'BCA', '2nd Year', 'riya123'),
+('arjun.patel@gmail.com', 'Arjun Patel', '9876543211', 'Male', 'BCA', '3rd Year', 'arjun123'),
+('neha.verma@gmail.com', 'Neha Verma', '9876543212', 'Female', 'BBA', '1st Year', 'neha123'),
+('rahul.mehta@gmail.com', 'Rahul Mehta', '9876543213', 'Male', 'BCA', '2nd Year', 'rahul123'),
+('sneha.joshi@gmail.com', 'Sneha Joshi', '9876543214', 'Female', 'MCA', '1st Year', 'sneha123');
+
+
+-- =========================================
+-- 2. ROOMS
+-- =========================================
+
+INSERT INTO rooms
+(room_number, floor, capacity, status)
+VALUES
+('101', 1, 2, 'Occupied'),
+('102', 1, 2, 'Occupied'),
+('103', 1, 2, 'Available'),
+('201', 2, 3, 'Occupied'),
+('202', 2, 3, 'Available'),
+('203', 2, 3, 'Occupied');
+
+
+-- =========================================
+-- 3. ALLOCATIONS
+-- =========================================
+
+INSERT INTO allocations
+(student_id, room_number, bed_number, allocation_date, reason, status)
+VALUES
+(1, '101', 'B1', '2026-06-10', 'Regular hostel allocation', 'active'),
+(2, '101', 'B2', '2026-06-10', 'Regular hostel allocation', 'active'),
+(3, '102', 'B1', '2026-06-11', 'Regular hostel allocation', 'active'),
+(4, '201', 'B1', '2026-06-12', 'Regular hostel allocation', 'active'),
+(5, '201', 'B2', '2026-06-12', 'Regular hostel allocation', 'active');
+
+
+-- =========================================
+-- 4. FEES
+-- =========================================
+
+INSERT INTO fees
+(student_id, room_number, total_fee, paid, due, status)
+VALUES
+(1, '101', 50000.00, 50000.00, 0.00, 'paid'),
+(2, '101', 50000.00, 30000.00, 20000.00, 'partial'),
+(3, '102', 50000.00, 50000.00, 0.00, 'paid'),
+(4, '201', 60000.00, 40000.00, 20000.00, 'partial'),
+(5, '201', 60000.00, 60000.00, 0.00, 'paid');
+
+
+-- =========================================
+-- 5. PAYMENT HISTORY
+-- =========================================
+
+INSERT INTO payment_history
+(student_id, fee_id, date, amount, method, transaction_id)
+VALUES
+(1, 1, '2026-06-10', 50000.00, 'UPI', 'TXN100001'),
+(2, 2, '2026-06-10', 30000.00, 'Credit Card', 'TXN100002'),
+(3, 3, '2026-06-11', 50000.00, 'UPI', 'TXN100003'),
+(4, 4, '2026-06-12', 40000.00, 'Net Banking', 'TXN100004'),
+(5, 5, '2026-06-12', 60000.00, 'UPI', 'TXN100005');
+
+
+-- =========================================
+-- 6. COMPLAINTS
+-- =========================================
+
+INSERT INTO complaints
+(student_id, room_number, category, submitted, description, status, remarks)
+VALUES
+(1, '101', 'Maintenance', '2026-07-05',
+ 'Fan is making unusual noise.',
+ 'Resolved',
+ 'Fan repaired by maintenance team.'),
+
+(2, '101', 'Cleanliness', '2026-07-08',
+ 'Room needs cleaning.',
+ 'Pending',
+ 'Cleaning staff assigned.'),
+
+(3, '102', 'Water Supply', '2026-07-10',
+ 'Water supply is not available in the morning.',
+ 'In Progress',
+ 'Issue reported to maintenance.'),
+
+(4, '201', 'Electricity', '2026-07-12',
+ 'Tube light is not working.',
+ 'Resolved',
+ 'Tube light replaced.'),
+
+(5, '201', 'Internet', '2026-07-15',
+ 'Wi-Fi connection is slow.',
+ 'Pending',
+ 'Network team will inspect the connection.');
+
+
+-- =========================================
+-- 7. LEAVES
+-- =========================================
+
+INSERT INTO leaves
+(student_id, room_number, type, from_date, to_date, reason, status)
+VALUES
+(1, '101', 'Home Visit', '2026-08-01', '2026-08-05',
+ 'Family function', 'Approved'),
+
+(2, '101', 'Personal', '2026-08-10', '2026-08-12',
+ 'Personal work', 'Pending'),
+
+(3, '102', 'Medical', '2026-08-15', '2026-08-18',
+ 'Medical checkup', 'Approved'),
+
+(4, '201', 'Home Visit', '2026-08-20', '2026-08-23',
+ 'Family visit', 'Approved'),
+
+(5, '201', 'Personal', '2026-08-25', '2026-08-27',
+ 'Personal work', 'Pending');
+
+
+-- =========================================
+-- 8. NOTICES
+-- =========================================
+
+INSERT INTO notices
+(title, category, start_date, end_date, description, status)
+VALUES
+('Hostel Maintenance', 'Maintenance', '2026-09-01', '2026-09-03',
+ 'Hostel maintenance work will be carried out during these dates.',
+ 'Active'),
+
+('Fee Payment Reminder', 'Fees', '2026-09-05', '2026-09-15',
+ 'Students are requested to clear their pending hostel fees.',
+ 'Active'),
+
+('Independence Day Celebration', 'Event', '2026-08-15', '2026-08-15',
+ 'Independence Day celebration will be held in the hostel premises.',
+ 'Expired'),
+
+('Hostel Meeting', 'General', '2026-09-20', '2026-09-20',
+ 'Monthly hostel meeting for all residents.',
+ 'Active'),
+
+('Wi-Fi Maintenance', 'Maintenance', '2026-09-25', '2026-09-26',
+ 'Wi-Fi service may be unavailable during maintenance.',
+ 'Upcoming');
