@@ -4,7 +4,7 @@ const showSignup = document.getElementById("showSignup");
 const showLogin = document.getElementById("showLogin");
 
 /* =========================================
-   ROLE SELECTION
+   ROLE SELECTION (UI only)
 ========================================= */
 role.addEventListener("change", function () {
     if (role.value === "student") {
@@ -18,97 +18,108 @@ role.addEventListener("change", function () {
 });
 
 /* =========================================
-   SHOW SIGN UP
+   SHOW SIGN UP / LOGIN (UI only)
 ========================================= */
 showSignup.addEventListener("click", function () {
     authBox.classList.add("signup-active");
 });
 
-/* =========================================
-   SHOW LOGIN
-========================================= */
 showLogin.addEventListener("click", function () {
     authBox.classList.remove("signup-active");
 });
 
 /* =========================================
-   LOGIN VALIDATION
+   HELPERS
+========================================= */
+function clearErrors(formSelector) {
+    document.querySelectorAll(formSelector + " span").forEach(function (span) {
+        span.innerHTML = "";
+    });
+}
+
+function showFormMessage(elementId, message, isSuccess) {
+    const el = document.getElementById(elementId);
+    el.innerHTML = message;
+    el.style.color = isSuccess ? "#167D8D" : "#DC2626";
+}
+
+/* =========================================
+   LOGIN SUBMIT
+   Only checks that fields are filled in here.
+   The actual authentication (does this user exist,
+   is the password correct) happens in login.php.
 ========================================= */
 document.getElementById("loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    let selectedRole = document.getElementById("role").value;
-    let email = document.getElementById("loginEmail").value.trim();
-    let password = document.getElementById("loginPassword").value;
-    let valid = true;
+    clearErrors("#loginForm");
+    document.getElementById("loginFormMessage").innerHTML = "";
 
-    document.getElementById("roleError").innerHTML = "";
-    document.getElementById("loginEmailError").innerHTML = "";
-    document.getElementById("loginPasswordError").innerHTML = "";
+    const selectedRole = document.getElementById("role").value;
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    let valid = true;
 
     if (selectedRole === "") {
         document.getElementById("roleError").innerHTML = "Please select a role";
         valid = false;
-        return;
+    }
+    if (email === "") {
+        document.getElementById("loginEmailError").innerHTML = "Email is required";
+        valid = false;
+    }
+    if (password === "") {
+        document.getElementById("loginPasswordError").innerHTML = "Password is required";
+        valid = false;
     }
 
-    if (selectedRole === "admin") {
-        if (email === "admin@123" && password === "pass123") {
-            alert("Admin login successful!");
-            window.location.href = "admin_dashboard.html";
-        } else {
-            document.getElementById("loginEmailError").innerHTML = "Invalid admin credentials";
-            valid = false;
-        }
-    } 
-    else if (selectedRole === "student") {
-        if (email === "admin@123" && password === "pass123") {
-            document.getElementById("loginEmailError").innerHTML = "Admin credentials cannot be used for Student login";
-            valid = false;
-        } else {
-            if (email === "") {
-                document.getElementById("loginEmailError").innerHTML = "Email is required";
-                valid = false;
-            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                document.getElementById("loginEmailError").innerHTML = "Enter a valid email";
-                valid = false;
-            }
+    if (!valid) return;
 
-            if (password === "") {
-                document.getElementById("loginPasswordError").innerHTML = "Password is required";
-                valid = false;
-            } else if (password.length < 6) {
-                document.getElementById("loginPasswordError").innerHTML = "Minimum 6 characters";
-                valid = false;
+    fetch("login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: selectedRole, email: email, password: password })
+    })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            if (data.success) {
+                showFormMessage("loginFormMessage", data.message, true);
+                setTimeout(function () {
+                    window.location.href = data.redirect;
+                }, 800);
+            } else {
+                // e.g. "Student not registered." or "Invalid admin credentials."
+                showFormMessage("loginFormMessage", data.message, false);
             }
-
-            if (valid) {
-                alert("Student login successful!");
-                // Add window.location.href = "student_dashboard.html"; here when ready
-            }
-        }
-    }
+        })
+        .catch(function () {
+            showFormMessage("loginFormMessage", "Something went wrong. Please try again.", false);
+        });
 });
 
 /* =========================================
-   SIGN UP VALIDATION
+   SIGN UP SUBMIT
+   Client-side checks here are just for a snappy UX
+   (format/required-field hints). The real save-to-database
+   step, and the final success/failure message, come from
+   register.php.
 ========================================= */
 document.getElementById("signupForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("signupEmail").value.trim();
-    let phone = document.getElementById("phone").value.trim();
-    let gender = document.querySelector('input[name="gender"]:checked');
-    let course = document.getElementById("course").value;
-    let year = document.getElementById("year").value;
-    let password = document.getElementById("signupPassword").value;
-    let confirmPassword = document.getElementById("confirmPassword").value;
-    let valid = true;
+    clearErrors(".signup-form");
+    document.getElementById("signupFormMessage").innerHTML = "";
 
-    document.querySelectorAll(".signup-form span").forEach(function (span) {
-        span.innerHTML = "";
-    });
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const genderInput = document.querySelector('input[name="gender"]:checked');
+    const gender = genderInput ? genderInput.value : "";
+    const course = document.getElementById("course").value;
+    const year = document.getElementById("year").value;
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    let valid = true;
 
     if (name === "") {
         document.getElementById("nameError").innerHTML = "Name is required";
@@ -156,7 +167,37 @@ document.getElementById("signupForm").addEventListener("submit", function (e) {
         valid = false;
     }
 
-    if (valid) {
-        alert("Registration successful!");
-    }
+    if (!valid) return;
+
+    fetch("register.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            gender: gender,
+            course: course,
+            year: year,
+            password: password,
+            confirmPassword: confirmPassword
+        })
+    })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            if (data.success) {
+                // e.g. "You are registered! Please log in to continue."
+                showFormMessage("signupFormMessage", data.message, true);
+                document.getElementById("signupForm").reset();
+                setTimeout(function () {
+                    authBox.classList.remove("signup-active");
+                }, 1200);
+            } else {
+                // e.g. "Student not registered." or a validation reason
+                showFormMessage("signupFormMessage", data.message, false);
+            }
+        })
+        .catch(function () {
+            showFormMessage("signupFormMessage", "Student not registered. Please try again.", false);
+        });
 });
