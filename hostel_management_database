@@ -126,23 +126,10 @@ CREATE TABLE admin (
 );
 
 INSERT INTO admin (username, password)
-VALUES ('admin', '$2b$10$6R9T/tCAikVXtrg3aTFVG.ApjMafWz3z9JT2PL6TtVdJQSafAMxNK')
+VALUES ('admin', 'admin123')
 ON DUPLICATE KEY UPDATE password = VALUES(password);
 
 USE hostel_management;
-
--- =========================================
--- 1. STUDENTS
--- =========================================
-
-INSERT INTO students
-(email, name, phone, gender, course, year, password)
-VALUES
-('riya.sharma@gmail.com', 'Riya Sharma', '9876543210', 'Female', 'BCA', '2nd Year', 'riya123'),
-('arjun.patel@gmail.com', 'Arjun Patel', '9876543211', 'Male', 'BCA', '3rd Year', 'arjun123'),
-('neha.verma@gmail.com', 'Neha Verma', '9876543212', 'Female', 'BBA', '1st Year', 'neha123'),
-('rahul.mehta@gmail.com', 'Rahul Mehta', '9876543213', 'Male', 'BCA', '2nd Year', 'rahul123'),
-('sneha.joshi@gmail.com', 'Sneha Joshi', '9876543214', 'Female', 'MCA', '1st Year', 'sneha123');
 
 
 -- =========================================
@@ -284,3 +271,4 @@ VALUES
 ('Wi-Fi Maintenance', 'Maintenance', '2026-09-25', '2026-09-26',
  'Wi-Fi service may be unavailable during maintenance.',
  'Upcoming');
+ 
